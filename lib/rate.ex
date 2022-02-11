@@ -1,4 +1,4 @@
-defmodule Rates do
+defmodule Rate do
   @moduledoc """
   Functions for calculating the charged rate of trips based on a supplied plan
   """
