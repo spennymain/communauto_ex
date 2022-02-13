@@ -3,15 +3,20 @@ defmodule PlanTest do
 
   import Plan
 
-  test "plan rate" do
-    assert is_integer(plan(10, 80, [1, 2, 3, 4]))
+  @distance 110
+  @time [minutes: 1, hours: 1, days: 1]
+  @time_rate [minute_rate: 1, hour_rate: 10, day_rate: 100]
+  @km_rate [km_change: 100, base_rate: 1, increased_rate: 2]
+  @km_include [km_included: 50, increased_rate: 0.50]
+
+  @round_trip %Rate{time_rate: @time_rate, km_rate: @km_rate}
+  @flex_trip %Rate{time_rate: @time_rate, km_rate: @km_include}
+
+  test "plan rate flex" do
+    assert 141.0 = plan(@flex_trip, @distance, @time)
   end
 
-  test "time cost" do
-    assert is_integer(time_cost(1, 2, 3, 1, 2, 3))
-  end
-
-  test "distance cost" do
-    assert 2.0 = distance_cost(110, 100, 0.20)
+  test "plan rate round trip" do
+    assert 231 = plan(@round_trip, @distance, @time)
   end
 end
