@@ -8,11 +8,14 @@ defmodule Plan do
   require Logger
 
   def plan(
-        %Rate{time_rate: time_rate, km_rate: [_km_included, _rate] = km_rate},
+        %Rate{
+          time_rate: [_mintute, _hour, _day, _day_additional] = time_rate,
+          km_rate: [_km_change, _base_rate, _increased_rate] = km_rate
+        },
         distance,
         time
       ) do
-    time_cost(time_rate, time) + distance_cost(km_rate[:km_included], distance, km_rate[:rate])
+    time_cost(time_rate, time) + distance_cost(km_rate, distance)
   end
 
   def plan(
@@ -21,6 +24,14 @@ defmodule Plan do
         time
       ) do
     time_cost(time_rate, time) + distance_cost(km_rate, distance)
+  end
+
+  def plan(
+        %Rate{time_rate: time_rate, km_rate: [_km_included, _rate] = km_rate},
+        distance,
+        time
+      ) do
+    time_cost(time_rate, time) + distance_cost(km_rate[:km_included], distance, km_rate[:rate])
   end
 
   def all_plans() do

@@ -27,15 +27,16 @@ defmodule CommunAuto do
     for {name, current_plan} <- all_plans() do
       {time_rate, km_rate} = config_plan(current_plan)
       rate = %Rate{time_rate: time_rate, km_rate: km_rate}
+
       Logger.debug(
         "Calcluating the flex_trip @rate: #{inspect(rate)}, distance #{distance}, time #{
           inspect(time)
         }"
       )
+
       price = plan(rate, distance, time)
       {name, price}
     end
-
   end
 
   defp user_inputs() do
