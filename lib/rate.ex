@@ -24,6 +24,7 @@ defmodule Rate do
 
   @spec distance_cost(integer, integer, integer) :: integer
   def distance_cost(km_included, distance, rate) do
+    Logger.debug("#{km_included}, #{distance}, #{rate}")
     (distance - km_included) * rate
   end
 end

@@ -5,23 +5,21 @@ defmodule CommumAuto do
 
   import Plan
 
-  # TODO create config for rate structres
-  @time_rate [minute_rate: 1, hour_rate: 10, day_rate: 100]
-  @km_rate [km_change: 100, base_rate: 1, increased_rate: 2]
-  @km_include [km_included: 100, increased_rate: 10]
+  require Logger
 
   def round_trip() do
-    {time, distance} = user_inputs()
+    {time, distance, time_rate, km_rate} = user_inputs()
+    rate = %Rate{time_rate: time_rate, km_rate: km_rate}
 
-    rate = %Rate{time_rate: @time_rate, km_rate: @km_rate}
-
+    Logger.debug("Calcluating the round_trip rate: #{inspect(rate)}")
     plan(rate, distance, time)
   end
 
   def flex() do
-    {time, distance} = user_inputs()
-    rate = %Rate{time_rate: @time_rate, km_rate: @km_include}
+    {time, distance, time_rate, km_rate} = user_inputs()
+    rate = %Rate{time_rate: time_rate, km_rate: km_rate}
 
+    Logger.debug("Calcluating the flex_trip rate: #{inspect(rate)}")
     plan(rate, distance, time)
   end
 
@@ -31,10 +29,8 @@ defmodule CommumAuto do
     {days, _} = IO.gets("days: ") |> Integer.parse()
     {distance, _} = IO.gets("distance: ") |> Integer.parse()
 
-    # TODO select plan
-    _plan = IO.gets("plan:")
-
-    {format_time(minutes, hours, days), distance}
+    {time_rate, km_rate} = config_plan()
+    {format_time(minutes, hours, days), distance, time_rate, km_rate}
   end
 
   defp format_time(minutes, hours, days) do

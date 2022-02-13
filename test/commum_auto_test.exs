@@ -2,7 +2,6 @@ defmodule CommumAutoTest do
   use ExUnit.Case
   doctest CommumAuto
 
-  test "true" do
-    assert true
+  test "test open flex plan" do
   end
 end
