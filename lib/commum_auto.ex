@@ -31,6 +31,9 @@ defmodule CommumAuto do
     {days, _} = IO.gets("days: ") |> Integer.parse()
     {distance, _} = IO.gets("distance: ") |> Integer.parse()
 
+    # TODO select plan
+    _plan = IO.gets("plan:")
+
     {format_time(minutes, hours, days), distance}
   end
 
