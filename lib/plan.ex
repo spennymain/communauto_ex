@@ -28,11 +28,11 @@ defmodule Plan do
   end
 
   defp get_plan() do
-    {num, _} = IO.gets("plan (num):\n1 -open_flex\n2 -open_round") |> Integer.parse()
+    {num, _} = IO.gets("plan (num):\n1: open_flex\n2: open_round\n") |> Integer.parse()
 
     case num do
       1 -> Application.fetch_env!(:communauto_ex, :open_flex)
-      2 -> Application.fetch_env!(:communauto_ex, :open_flex)
+      2 -> Application.fetch_env!(:communauto_ex, :open_round)
     end
   end
 

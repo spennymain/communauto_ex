@@ -1,25 +1,22 @@
-defmodule CommumAuto do
+defmodule CommunAuto do
   @moduledoc """
-  Entrypoint for `CommumAuto` charging
+  Entrypoint for `CommunAuto` charging
   """
 
   import Plan
 
   require Logger
 
-  def round_trip() do
+  def calculate() do
     {time, distance, time_rate, km_rate} = user_inputs()
     rate = %Rate{time_rate: time_rate, km_rate: km_rate}
 
-    Logger.debug("Calcluating the round_trip rate: #{inspect(rate)}")
-    plan(rate, distance, time)
-  end
+    Logger.debug(
+      "Calcluating the flex_trip @rate: #{inspect(rate)}, distance #{distance}, time #{
+        inspect(time)
+      }"
+    )
 
-  def flex() do
-    {time, distance, time_rate, km_rate} = user_inputs()
-    rate = %Rate{time_rate: time_rate, km_rate: km_rate}
-
-    Logger.debug("Calcluating the flex_trip rate: #{inspect(rate)}")
     plan(rate, distance, time)
   end
 

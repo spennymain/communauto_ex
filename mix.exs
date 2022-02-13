@@ -1,4 +1,4 @@
-defmodule CommumAuto.MixProject do
+defmodule CommunAuto.MixProject do
   use Mix.Project
 
   def project do
